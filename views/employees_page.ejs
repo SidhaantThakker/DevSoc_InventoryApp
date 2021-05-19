@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Employees Page Works!</h3>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="/">Home Page</a>
+        <a href="/employees_page">Employees Page</a>
+        <a href="/products_page">Products Page</a>
+        <a href="/sections_page">Sections Page</a>
+    </nav>
+    <div class="add-button">
+        <a href="/add_employee_page">Add Employee</a>
+    </div>
+    <div class="employees-div">
+        <% for(let i=0; i< employees.length; i++) { %>
+            <div class="employee-class">
+                <span> ID: <%= employees[i].id %> </span>
+                <br>
+                <span> Name: <%= employees[i].name %> </span>
+                <br>
+                <span> Section: <%= employees[i].section %> </span>
+                <br>
+                <button class="delete-button" id=<%= employees[i].id %> >Fire</button>
+                <a href="/employee_details_page/<%= employees[i].id %>">View Employee Information</a>
+                <hr>
+            </div>
+        <% } %>
+    </div>
+    <script src="/employees_script.js"></script>
+</body>
+</html>

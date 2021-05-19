@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Product Details Works!</h3>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="/">Home Page</a>
+        <a href="/employees_page">Employees Page</a>
+        <a href="/products_page">Products Page</a>
+        <a href="/sections_page">Sections Page</a>
+    </nav>
+    <p>ID: <%= product[0].id %> </p>
+    <p>Name: <%= product[0].name %> </p>
+    <p>Cost: <%= product[0].cost %> </p>
+    <button id="<%= product[0].id %>" onclick="deleteItem(this.id)">Delete Product</button>
+    <a href="/product_update_page/<%= product[0].id %>">Update Product</a>
+    <script src="/product_details_script.js"></script>
+</body>
+</html>

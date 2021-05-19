@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Products Page Works!</h3>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="/">Home Page</a>
+        <a href="/employees_page">Employees Page</a>
+        <a href="/products_page">Products Page</a>
+        <a href="/sections_page">Sections Page</a>
+    </nav>
+    <div class="add-button">
+        <a href="/add_product_page">Add Product</a>
+    </div>
+    <div class="products-div">
+        <% for(let i=0; i< products.length; i++) { %>
+            <div class="product-class">
+                <span> ID: <%= products[i].id %> </span>
+                <br>
+                <span> Name: <%= products[i].name %> </span>
+                <br>
+                <span> Cost: <%= products[i].cost %> </span>
+                <br>
+                <button class="delete-button" id=<%= products[i].id %> >Quick Delete</button>
+                <a href="/product_details_page/<%= products[i].id %>">View Details</a>
+                <hr>
+            </div>
+        <% } %>
+    </div>
+    <script src="/products_script.js"></script>
+</body>
+</html>
