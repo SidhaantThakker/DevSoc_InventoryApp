@@ -6,7 +6,7 @@ const uuid = require('uuid');
 const MongoClient = require('mongodb').MongoClient;
 
 const PORT = process.env.PORT || 5000;
-const connectionString = "mongodb+srv://admin:helloworld@cluster0.7uz2z.mongodb.net/InventoryAppDB?retryWrites=true&w=majority";
+const connectionString = "mongodb+srv://admin:"+process.env.DB_PASSWORD+"@cluster0.7uz2z.mongodb.net/InventoryAppDB?retryWrites=true&w=majority";
 
 MongoClient.connect(connectionString, {
     useUnifiedTopology: true
