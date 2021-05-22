@@ -22,29 +22,23 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-light bg-primary justify-content-start">
         <a class="nav-link" href="/">Home Page</a>
         <a class="nav-link" href="/employees_page">Employees Page</a>
         <a class="nav-link" href="/products_page">Products Page</a>
         <a class="nav-link" href="/sections_page">Sections Page</a>
     </nav>
-    <div class="d-flex justify-content-center">
-        <form action="/products" method="POST">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" name="name" class="form-control" id="product_name">
-            </div>
-            <div class="form-group">
-                <label for="cost">Cost</label>
-                <input type="text" name="cost" class="form-control" id="product_cost">
-            </div>
-            <div class="form-group">
-                <label for="sect">Section</label>
-                <input type="text" name="sect" class="form-control" id="product_sect">
-            </div>
-            <button type="submit" class="btn btn-primary">Add Product</button>
-        </form>
+    <div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" class="form-control" value="<%= section[0].name %>" id="section_name">
+        </div>
+        <div class="form-group">
+            <label for="cost">Desc</label>
+            <input type="text" name="desc" class="form-control" value="<%= section[0].desc %>" id="section_desc">
+        </div>
+        <button id="<%= section[0].id %>" onclick="updateSection(this.id)">Update!</button>
     </div>
+    <script src="/section_update_script.js"></script>
 </body>
 </html>

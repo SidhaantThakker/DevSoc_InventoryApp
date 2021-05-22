@@ -1,10 +1,12 @@
 function updateProduct(id){
     updated_name = document.getElementById("product_name").value;
     updated_cost = document.getElementById("product_cost").value;
+    updated_sect = document.getElementById("product_sect").value;
     const updatedProduct = {
         id: id,
         name: updated_name,
-        cost: updated_cost
+        cost: updated_cost,
+        sect: updated_sect
     }
     console.log("Trying to PUT", updatedProduct);
     fetch('/products', {

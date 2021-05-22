@@ -17,6 +17,7 @@ MongoClient.connect(connectionString, {
     const db = client.db('InventoryAppDB');
     const products_collection = db.collection('products');
     const employees_collection = db.collection('employees');
+    const sections_collection = db.collection('sections');
 
     //Setting the View Engine
     app.set('view engine', 'ejs');
@@ -59,13 +60,13 @@ MongoClient.connect(connectionString, {
     })
     //Sections Page Route
     app.get('/sections_page', (req,res) => {
-        products_collection.find().toArray()
-        .then(products => {
-            res.render("sections_page.ejs", products);
+        sections_collection.find().toArray()
+        .then(sections => {
+            res.render("sections_page.ejs", {sections});
         })
         .catch(err => console.error(err));
     })
-    //Add Products Page Route
+    //AddProducts Page Route
     app.get('/add_product_page', (req,res) => {
         products_collection.find().toArray()
         .then(() => {
@@ -73,7 +74,7 @@ MongoClient.connect(connectionString, {
         })
         .catch(err => console.error(err));
     })
-    //Add Employees Page Routes
+    //AddEmployees Page Route
     app.get('/add_employee_page', (req,res) => {
         employees_collection.find().toArray()
         .then(() => {
@@ -81,8 +82,16 @@ MongoClient.connect(connectionString, {
         })
         .catch(err => console.error(err));
     })
+    //AddSection Page Route
+    app.get('/add_section_page', (req,res) => {
+        sections_collection.find().toArray()
+        .then(() => {
+            res.render("add_section_page.ejs");
+        })
+        .catch(err => console.error(err));
+    })
 
-    //Add Single Product Route
+    //SingleProduct Route
     app.get('/product_details_page/:id', (req, res) => {
         const id = req.params.id;
         products_collection.find({
@@ -96,7 +105,7 @@ MongoClient.connect(connectionString, {
 
     });
 
-    //Add Update Product Route
+    //UpdateProduct Route
     app.get('/product_update_page/:id', (req, res) => {
         const id = req.params.id;
         products_collection.find({
@@ -109,7 +118,7 @@ MongoClient.connect(connectionString, {
         .catch(err => console.error(err));
     });
 
-    //Add Single Employee Route
+    //SingleEmployee Route
     app.get('/employee_details_page/:id', (req, res) => {
         const id = req.params.id;
         employees_collection.find({
@@ -122,30 +131,62 @@ MongoClient.connect(connectionString, {
         .catch(err => console.error(err));
 
     });
+
+    //SingleSection Route
+    app.get('/section_details_page/:id', (req, res) => {
+        const id = req.params.id;
+        sections_collection.find({
+            "id":id
+        }).toArray()
+        .then(section => {
+            products_collection.find({
+                "sect":section[0].name
+            }).toArray()
+            .then(prods => {
+                console.log("prods found -")
+                console.log(prods);
+                res.render("section_details_page.ejs", {section, prods});
+            })
+            .catch(err => console.error(err))
+        })
+        .catch(err => console.error(err));
+
+    });
     
-    //Add Update Employee Route
+    //UpdateEmployee Route
     app.get('/employee_update_page/:id', (req, res) => {
         const id = req.params.id;
         employees_collection.find({
             "id": id
         }).toArray()
         .then(employee => {
-            console.log(employee);
             res.render("employee_update_page.ejs", {employee});
         })
         .catch(err => console.error(err));
     });
 
+    //UpdateSection Route
+    app.get('/section_update_page/:id', (req, res) => {
+        const id = req.params.id;
+        sections_collection.find({
+            "id": id
+        }).toArray()
+        .then(section => {
+            res.render("section_update_page.ejs", {section});
+        })
+        .catch(err => console.error(err));
+    });
+    
     //Handling POST to Products
     app.post('/products', (req, res) => {
         const newProduct = {
             id: uuid.v4(),
-            name: req.body.name,
-            cost: req.body.cost
+            name: req.body.name, 
+            cost: req.body.cost,
+            sect: req.body.sect
         }
         products_collection.insertOne(newProduct)
         .then(result => {
-            console.log(result);
             res.redirect('/products_page');
         })
         .catch(err => console.log(err))
@@ -160,16 +201,27 @@ MongoClient.connect(connectionString, {
         }
         employees_collection.insertOne(newEmployee)
         .then(result => {
-            console.log(result);
             res.redirect('/employees_page');
+        })
+        .catch(err => console.log(err))
+    });
+
+    //Handling POST to Sections
+    app.post('/sections', (req, res) => {
+        const newSection = {
+            id: uuid.v4(),
+            name: req.body.name,
+            desc: req.body.desc
+        }
+        sections_collection.insertOne(newSection)
+        .then(result => {
+            res.redirect('/sections_page');
         })
         .catch(err => console.log(err))
     });
 
     //Handling PUT to Products
     app.put('/products', (req, res) => {
-        console.log("Hello!");
-        console.log(req.body);
         products_collection.findOneAndUpdate({
             id: req.body.id
         },
@@ -187,8 +239,6 @@ MongoClient.connect(connectionString, {
 
     //Handling PUT to Employees
     app.put('/employees', (req, res) => {
-        console.log("Hello!");
-        console.log(req.body);
         employees_collection.findOneAndUpdate({
             id: req.body.id
         },
@@ -204,9 +254,26 @@ MongoClient.connect(connectionString, {
         .catch(err => console.error(err));
     });
 
+    //Handling PUT to Sections
+    app.put('/sections', (req, res) => {
+        sections_collection.findOneAndUpdate({
+            id: req.body.id
+        },
+        {
+            $set: req.body
+        },
+        {
+            upsert: true
+        })
+        .then(result => {
+            res.json("Section Updated");
+        })
+        .catch(err => console.error(err));
+    });
+
     //Handling DELETE to Products
     app.delete('/products', (req, res)=> {
-        console.log("Delete Req to ID", req.body.id);
+
         products_collection.deleteOne(
             {id: req.body.id}
         )
@@ -221,8 +288,23 @@ MongoClient.connect(connectionString, {
 
     //Handling DELETE to Employees
     app.delete('/employees', (req, res)=> {
-        console.log("Delete Req to ID", req.body.id);
+
         employees_collection.deleteOne(
+            {id: req.body.id}
+        )
+        .then(result => {
+            if(result.deletedCount === 0){
+                res.json("Unexpected Error - Product Not Found")
+            }
+            res.json("Deleted Object")
+        })
+        .catch(err => console.error(err));
+    });
+
+    //Handling DELETE to Sections
+    app.delete('/sections', (req, res)=> {
+ 
+        sections_collection.deleteOne(
             {id: req.body.id}
         )
         .then(result => {

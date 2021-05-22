@@ -22,29 +22,31 @@
     </style>
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-light bg-primary justify-content-start">
         <a class="nav-link" href="/">Home Page</a>
         <a class="nav-link" href="/employees_page">Employees Page</a>
         <a class="nav-link" href="/products_page">Products Page</a>
         <a class="nav-link" href="/sections_page">Sections Page</a>
     </nav>
-    <div class="d-flex justify-content-center">
-        <form action="/products" method="POST">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" name="name" class="form-control" id="product_name">
+    <p>ID: <%= section[0].id %> </p>
+    <p>Name: <%= section[0].name %> </p>
+    <p>Desc: <%= section[0].desc %> </p>
+    <h5>Products: </h5>
+    <div class="prods-div">
+        <% for(let i=0; i< prods.length; i++) { %>
+            <div class="prods-class">
+                <span> ID: <%= prods[i].id %> </span>
+                <br>
+                <span> Name: <%= prods[i].name %> </span>
+                <br>
+                <span> Desc: <%= prods[i].cost %> </span>
+                <br>
+                <a href="/product_details_page/<%= prods[i].id %>">View Product</a>
             </div>
-            <div class="form-group">
-                <label for="cost">Cost</label>
-                <input type="text" name="cost" class="form-control" id="product_cost">
-            </div>
-            <div class="form-group">
-                <label for="sect">Section</label>
-                <input type="text" name="sect" class="form-control" id="product_sect">
-            </div>
-            <button type="submit" class="btn btn-primary">Add Product</button>
-        </form>
+        <% } %>
     </div>
+    <button id="<%= section[0].id %>" onclick="deleteItem(this.id)">Delete</button>
+    <a href="/section_update_page/<%= section[0].id %>">Update Section</a>
+    <script src="/section_details_script.js"></script>
 </body>
 </html>
