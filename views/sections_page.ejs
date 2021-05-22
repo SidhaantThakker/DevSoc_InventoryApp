@@ -19,6 +19,14 @@
         button{
             margin-top: 1em;
         }
+        .add-button{
+            margin-left: 0.5vw;
+            margin-bottom: 1vh;
+        }
+        .section-class{
+            margin-left: 1em;
+            font-size: 1.2em;
+        }
     </style>
 </head>
 <body>
@@ -29,21 +37,31 @@
         <a class="nav-link" href="/sections_page">Sections Page</a>
     </nav>
     <div class="add-button">
-        <a href="/add_section_page">Add Section</a>
+        <a href="/add_section_page">
+            <button class="btn btn-success">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+                Add Section
+            </button>  
+        </a>
     </div>
     <div class="sections-div">
+        <hr>
         <% for(let i=0; i< sections.length; i++) { %>
             <div class="section-class">
-                <span> ID: <%= sections[i].id %> </span>
-                <br>
                 <span> Name: <%= sections[i].name %> </span>
                 <br>
                 <span> Desc: <%= sections[i].desc %> </span>
                 <br>
-                <button class="delete-button" id=<%= sections[i].id %> >Quick Delete</button>
-                <a href="/section_details_page/<%= sections[i].id %>">View Details</a>
-                <hr>
+                <button class="delete-button btn btn-danger" id=<%= sections[i].id %> ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder-minus" viewBox="0 0 16 16">
+                    <path d="m.5 3 .04.87a1.99 1.99 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2zm5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19c-.24 0-.47.042-.683.12L1.5 2.98a1 1 0 0 1 1-.98h3.672z"/>
+                    <path d="M11 11.5a.5.5 0 0 1 .5-.5h4a.5.5 0 1 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+                  </svg></button>
+                <a href="/section_details_page/<%= sections[i].id %>"><button class="btn btn-primary">View Details</button></a>
             </div>
+        <hr>
         <% } %>
     </div>
     <script src="/sections_script.js"></script>

@@ -181,6 +181,7 @@ MongoClient.connect(connectionString, {
     app.post('/products', (req, res) => {
         const newProduct = {
             id: uuid.v4(),
+            img: req.body.img,
             name: req.body.name, 
             cost: req.body.cost,
             sect: req.body.sect

@@ -28,20 +28,23 @@
         <a class="nav-link" href="/products_page">Products Page</a>
         <a class="nav-link" href="/sections_page">Sections Page</a>
     </nav>
-    <div>
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" name="name" class="form-control" value="<%= product[0].name %>" id="product_name">
+    <div class="d-flex flex-column align-items-center">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" class="form-control" value="<%= product[0].name %>" id="product_name">
+            </div>
+
+            <div class="form-group">
+                <label for="cost">Cost</label>
+                <input type="text" name="cost" class="form-control" value="<%= product[0].cost %>" id="product_cost">
+            </div>
+
+            <div class="form-group">
+                <label for="sect">Section</label>
+                <input type="text" name="sect" class="form-control" value="<%= product[0].sect %>" id="product_sect">
+            </div>
+            <button id="<%= product[0].id %>" class="btn btn-primary" onclick="updateProduct(this.id)">Update!</button>
         </div>
-        <div class="form-group">
-            <label for="cost">Cost</label>
-            <input type="text" name="cost" class="form-control" value="<%= product[0].cost %>" id="product_cost">
-        </div>
-        <div class="form-group">
-            <label for="sect">Section</label>
-            <input type="text" name="sect" class="form-control" value="<%= product[0].sect %>" id="product_sect">
-        </div>
-        <button id="<%= product[0].id %>" onclick="updateProduct(this.id)">Update!</button>
     </div>
     <script src="/product_update_script.js"></script>
 </body>

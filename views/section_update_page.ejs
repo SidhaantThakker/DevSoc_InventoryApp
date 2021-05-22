@@ -28,7 +28,7 @@
         <a class="nav-link" href="/products_page">Products Page</a>
         <a class="nav-link" href="/sections_page">Sections Page</a>
     </nav>
-    <div>
+    <div class="d-flex flex-column align-items-center">
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" name="name" class="form-control" value="<%= section[0].name %>" id="section_name">
@@ -37,7 +37,7 @@
             <label for="cost">Desc</label>
             <input type="text" name="desc" class="form-control" value="<%= section[0].desc %>" id="section_desc">
         </div>
-        <button id="<%= section[0].id %>" onclick="updateSection(this.id)">Update!</button>
+        <button id="<%= section[0].id %>" class="btn btn-primary" onclick="updateSection(this.id)">Update!</button>
     </div>
     <script src="/section_update_script.js"></script>
 </body>
