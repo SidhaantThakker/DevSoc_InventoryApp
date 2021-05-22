@@ -19,6 +19,24 @@
         button{
             margin-top: 1em;
         }
+        .info-div{
+            margin-left: 1em;
+            margin-right: 1em;
+        }
+        .prods-div{
+            margin-left: 1em;
+            margin-right: 1em;
+        }
+        .id-box{
+            margin-top: 1em;
+            margin-left: 0.5em;
+        }
+        h5{
+            margin-left: 1em;
+        }
+        .buttons-div{
+            margin-left: 1em;
+        }
     </style>
 </head>
 <body>
@@ -28,25 +46,52 @@
         <a class="nav-link" href="/products_page">Products Page</a>
         <a class="nav-link" href="/sections_page">Sections Page</a>
     </nav>
-    <p>ID: <%= section[0].id %> </p>
-    <p>Name: <%= section[0].name %> </p>
-    <p>Desc: <%= section[0].desc %> </p>
+    <div class="info-div">
+        <p class="id-box" style="color: #777">ID: <%= section[0].id %> </p>
+        <table class="table table-hover">
+            <thead>
+                <th scope="col" class="col-3">Section Data</th>
+                <th scope="col" class="col-9">Value</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">Name:</td>
+                    <td><%= section[0].name %></td>
+                </tr>
+                <tr>
+                    <td scope="row">Description:</td>
+                    <td><%= section[0].cost %></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <h5>Products: </h5>
     <div class="prods-div">
-        <% for(let i=0; i< prods.length; i++) { %>
-            <div class="prods-class">
-                <span style="color: #888"> ID: <%= prods[i].id %> </span>
-                <br>
-                <span> Name: <%= prods[i].name %> </span>
-                <br>
-                <span> Desc: <%= prods[i].cost %> </span>
-                <br>
-                <a href="/product_details_page/<%= prods[i].id %>">View Product</a>
-            </div>
-        <% } %>
+        <table class="table table-hover">
+            <thead>
+                <th scope="col" class="col-3">Product Name</th>
+                <th scope="col" class="col-9">Cost</th>
+            </thead>
+            <tbody>
+                <% for(let i=0; i< prods.length; i++) { %>
+                    <tr class="prods-class" id ="<%= prods[i].id %>" onclick="viewProduct(this.id)">
+                        <td> <%= prods[i].name %> </td>
+                        <td> <%= prods[i].cost %> </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
     </div>
-    <button id="<%= section[0].id %>" onclick="deleteItem(this.id)">Delete</button>
-    <a href="/section_update_page/<%= section[0].id %>">Update Section</a>
+
+    <div class="buttons-div">
+        <button id="<%= section[0].id %>" class="btn btn-danger" onclick="deleteItem(this.id)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder-minus" viewBox="0 0 16 16">
+            <path d="m.5 3 .04.87a1.99 1.99 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2zm5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19c-.24 0-.47.042-.683.12L1.5 2.98a1 1 0 0 1 1-.98h3.672z"/>
+            <path d="M11 11.5a.5.5 0 0 1 .5-.5h4a.5.5 0 1 1 0 1h-4a.5.5 0 0 1-.5-.5z"/>
+          </svg></button>
+        <a href="/section_update_page/<%= section[0].id %>"><button class="btn btn-primary">Update</button></a>
+    </div>
+    
+
     <script src="/section_details_script.js"></script>
 </body>
 </html>

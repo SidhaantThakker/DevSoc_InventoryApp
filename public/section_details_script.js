@@ -15,3 +15,7 @@ function deleteItem(id){
         window.location = "/sections_page";
     });
 }
+
+function viewProduct(id){
+    window.location = "/product_details_page/"+id;
+}
