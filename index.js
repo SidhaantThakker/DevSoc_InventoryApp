@@ -2,9 +2,10 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const uuid = require('uuid');
-
+const dotenv = require('dotenv');
 const MongoClient = require('mongodb').MongoClient;
 
+dotenv.config();
 const PORT = process.env.PORT || 5000;
 const connectionString = "mongodb+srv://admin:"+process.env.DB_PASSWORD+"@cluster0.7uz2z.mongodb.net/InventoryAppDB?retryWrites=true&w=majority";
 
