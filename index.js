@@ -4,9 +4,10 @@ const morgan = require('morgan');
 const uuid = require('uuid');
 const dotenv = require('dotenv');
 const MongoClient = require('mongodb').MongoClient;
-
+var cors = require('cors');
+app.use(cors()); // Use this after the variable declaration
 dotenv.config();
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 const connectionString = "mongodb+srv://admin:"+process.env.DB_PASSWORD+"@cluster0.7uz2z.mongodb.net/InventoryAppDB?retryWrites=true&w=majority";
 
 MongoClient.connect(connectionString, {
@@ -32,6 +33,190 @@ MongoClient.connect(connectionString, {
     //Setting up the body parser
     app.use(express.json());
     app.use(express.urlencoded({extended:true}));
+
+    //handling data
+
+    //accessing products
+    app.get('/pr', (req,res) => {
+        products_collection.find().toArray()
+        .then(products => {
+            res.send({products});
+        })
+        .catch(err => console.error(err));
+    })
+
+    //adding products
+    app.post('/pr', (req, res) => {
+        const newProduct = {
+            id: uuid.v4(),
+            img: req.body.img,
+            name: req.body.name, 
+            cost: req.body.cost,
+            sect: req.body.sect
+        }
+        products_collection.insertOne(newProduct)
+        .then(result => {
+            res.send('Done!');
+        })
+        .catch(err => console.log(err))
+    });
+
+    //accessing employee
+
+    app.get('/emp', (req,res) => {
+        employees_collection.find().toArray()
+        .then(employees => {
+            res.send({employees});
+        })
+        .catch(err => console.error(err));
+    })
+
+    //add employee
+
+    app.post('/emp', (req, res) => {
+        const newEmployee = {
+            id: uuid.v4(),
+            name: req.body.name,
+            section: req.body.section
+        }
+        employees_collection.insertOne(newEmployee)
+        .then(result => {
+            res.send('done');
+        })
+        .catch(err => console.log(err))
+    });
+
+    //Accessing sections
+
+    app.get('/sec', (req,res) => {
+        sections_collection.find().toArray()
+        .then(sections => {
+            res.send({sections});
+        })
+        .catch(err => console.error(err));
+    })
+
+    //add section
+
+    app.post('/sec', (req, res) => {
+        const newSection = {
+            id: uuid.v4(),
+            name: req.body.name,
+            desc: req.body.desc
+        }
+        sections_collection.insertOne(newSection)
+        .then(result => {
+            res.send('Done');
+        })
+        .catch(err => console.log(err))
+    });
+
+    //delete product
+
+    app.delete('/pr', (req, res)=> {
+
+        products_collection.deleteOne(
+            {id: req.body.id}
+        )
+        .then(result => {
+            if(result.deletedCount === 0){
+                res.json("Unexpected Error - Product Not Found")
+            }
+            else
+            res.json("Deleted Object")
+        })
+        .catch(err => console.error(err));
+    });
+
+    //delete employee
+    
+    app.delete('/emp', (req, res)=> {
+
+        employees_collection.deleteOne(
+            {id: req.body.id}
+        )
+        .then(result => {
+            if(result.deletedCount === 0){
+                res.json("Unexpected Error - Product Not Found")
+            }
+            else
+            res.json("Deleted Object")
+        })
+        .catch(err => console.error(err));
+    });
+    
+    //delete section
+
+    app.delete('/sec', (req, res)=> {
+ 
+        sections_collection.deleteOne(
+            {id: req.body.id}
+        )
+        .then(result => {
+            if(result.deletedCount === 0){
+                res.json("Unexpected Error - Product Not Found")
+            }
+            else
+            res.json("Deleted Object")
+        })
+        .catch(err => console.error(err));
+    });
+
+    //product mod
+    app.put('/pr', (req, res) => {
+        products_collection.findOneAndUpdate({
+            id: req.body.id
+        },
+        {
+            $set: req.body
+        },
+        {
+            upsert: true
+        })
+        .then(result => {
+            res.json("Product Updated");
+        })
+        .catch(err => console.error(err));
+    });
+
+    //employee mod
+
+    app.put('/emp', (req, res) => {
+        employees_collection.findOneAndUpdate({
+            id: req.body.id
+        },
+        {
+            $set: req.body
+        },
+        {
+            upsert: true
+        })
+        .then(result => {
+            res.json("Product Updated");
+        })
+        .catch(err => console.error(err));
+    });
+
+    //sections mod
+
+    app.put('/sec', (req, res) => {
+        sections_collection.findOneAndUpdate({
+            id: req.body.id
+        },
+        {
+            $set: req.body
+        },
+        {
+            upsert: true
+        })
+        .then(result => {
+            res.json("Section Updated");
+        })
+        .catch(err => console.error(err));
+    });
+
+   
+
 
     //Handling GET
     //Homepage Route

@@ -1,6 +1,7 @@
 {
   "name": "devsoc_inventoryapp",
   "version": "1.0.0",
+  "proxy": "http://localhost:5000",
   "description": "Submission for DevSoc Asssignment",
   "main": "index.js",
   "scripts": {
@@ -23,6 +24,7 @@
   },
   "dependencies": {
     "bootstrap-icons": "^1.5.0",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
