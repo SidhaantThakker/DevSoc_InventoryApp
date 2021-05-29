@@ -14,7 +14,7 @@ Products can ba assigned to sections, which once created, show all the products 
 Employee Data can also be stored, updated and deleted on the app.
 
 #### Future Update Ideas:
-Add more fields to products, add more features to manage, add better linking across the various facets of the app, add a login system, add a React-based front-end.
+Add more fields to products, add more features to manage, add better linking across the various facets of the app, add a login system.
 
 ## Live At : https://peaceful-goldwasser-0631f5.netlify.app  and https://protected-dawn-04416.herokuapp.com/
 ##
