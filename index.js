@@ -7,7 +7,7 @@ const MongoClient = require('mongodb').MongoClient;
 var cors = require('cors');
 app.use(cors()); // Use this after the variable declaration
 dotenv.config();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 const connectionString = "mongodb+srv://admin:"+process.env.DB_PASSWORD+"@cluster0.7uz2z.mongodb.net/InventoryAppDB?retryWrites=true&w=majority";
 
 MongoClient.connect(connectionString, {
